@@ -1,4 +1,4 @@
-'''from transformers import pipeline
+from transformers import pipeline
 
 # Load sentiment model
 classifier = pipeline("sentiment-analysis")
@@ -11,4 +11,4 @@ texts = [
 ]
 
 for t in texts:
-    print(t, "->", classifier(t))'''
+    print(t, "->", classifier(t))
