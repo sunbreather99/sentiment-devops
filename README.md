@@ -195,6 +195,8 @@ This project demonstrates how **AI models can be integrated with DevOps practice
 ## 👨‍💻 Author
 
 Saksham Chopra
+Aditi Verma
+Yashika Tomar
 
 ---
 
