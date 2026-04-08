@@ -1,5 +1,5 @@
 # Logistic Regression model with TF-IDF vectorization for sentiment analysis, served via FastAPI.
-from contextlib import asynccontextmanager
+'''from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pickle
@@ -54,4 +54,32 @@ import os
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("app:app", host="0.0.0.0", port=port)
+    uvicorn.run("app:app", host="0.0.0.0", port=port)'''
+from fastapi import FastAPI
+from pydantic import BaseModel
+import pickle
+
+app = FastAPI()
+
+# Load Logistic Regression
+model = pickle.load(open("model.pkl", "rb"))
+vectorizer = pickle.load(open("vectorizer.pkl", "rb"))
+
+class InputText(BaseModel):
+    text: str
+
+@app.get("/")
+def home():
+    return {"message": "Sentiment API Running"}
+
+@app.post("/predict")
+def predict(data: InputText):
+    text = data.text
+
+    vec = vectorizer.transform([text])
+    prediction = model.predict(vec)[0]
+
+    return {
+        "input": text,
+        "prediction": prediction
+    }
